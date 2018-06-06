@@ -89,3 +89,12 @@ def rs
   end
   proc_name(a, 'Shift>')
 end
+
+def mirror
+  a = lambda do |s|
+    rs = (s.to_s + s.to_i.to_s.reverse).to_i
+    rs = -rs if s < 0
+    rs
+  end
+  proc_name(a, 'Mirror')
+end
