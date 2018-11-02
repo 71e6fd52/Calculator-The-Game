@@ -14,7 +14,7 @@ MOVE = Inf
 
 list = []
 STDIN.each_line do |line|
-  list << Button.parse(line)
+  list << Button.parse(line.chomp)
 end
 
 (1..MOVE).each do |move|

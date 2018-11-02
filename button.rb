@@ -1,6 +1,7 @@
 class Button
   def self.parse(str)
     case str
+    when '+/-' then Opposite
     when /^\+/ then Plus
     when /^-/ then Minus
     when /^\d/ then Number
@@ -157,5 +158,20 @@ class Reverse
 
   def to_s
     'Reverse'
+  end
+end
+
+class Opposite
+  def self.parse(str)
+    raise 'Not Reverse' unless str == '+/-'
+    new
+  end
+
+  def click(now, _all)
+    -now
+  end
+
+  def to_s
+    '+/-'
   end
 end
