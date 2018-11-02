@@ -8,17 +8,17 @@ class Button
       when /^\*/ then Multiply
       when %r{^/} then Divide
       when /^\^/ then Multiply
-      when /^Reverse$/i then Reverse
+      when /^Rev/i then Reverse
       when '<<' then Left
       when '>>' then Right
       when /=>/ then To
-      when /^SUM$/i then SUM
+      when /^SUM/i then SUM
       when /^<Shift$/i then LeftShift
       when /^Shift>$/i then RightShift
-      when /^Mirror$/i then Mirror
+      when /^Mir/i then Mirror
       when /^\[.\]/ then Modify
       when /^\d/ then Number
-      when /^Store$/i then Store
+      when /^Sto/i then Store
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
   end
