@@ -22,7 +22,7 @@ class Number
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^([0-9.]+)$/)
+    m = str.match(/^(\d+)$/)
     raise 'Not Number' unless m
     new(m[1].to_i)
   end
@@ -44,7 +44,7 @@ class Plus
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^\+([0-9.]+)$/)
+    m = str.match(/^\+(\d+)$/)
     raise 'Not Plus' unless m
     new(m[1].to_i)
   end
@@ -66,7 +66,7 @@ class Minus
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^-([0-9.]+)$/)
+    m = str.match(/^-(\d+)$/)
     raise 'Not Minus' unless m
     new(m[1].to_i)
   end
@@ -88,7 +88,7 @@ class Multiply
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^\*([0-9.]+)$/)
+    m = str.match(/^\*(\d+)$/)
     raise 'Not Multiply' unless m
     new(m[1].to_i)
   end
@@ -110,7 +110,7 @@ class Divide
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(%r{^/([0-9.]+)$})
+    m = str.match(%r{^/(\d+)$})
     raise 'Not Divide' unless m
     new(m[1].to_i)
   end
@@ -132,7 +132,7 @@ class Power
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^\^([0-9.]+)$/)
+    m = str.match(/^\^(\d+)$/)
     raise 'Not Power' unless m
     new(m[1].to_i)
   end
