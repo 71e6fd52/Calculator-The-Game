@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require './helper'
+require './button'
 
 Inf = 1.0 / 0
 
@@ -12,29 +12,18 @@ GOAL = gets.to_i
 # m = gets.to_i
 MOVE = Inf
 
-open('config.rb', 'w') do |f|
-  f.puts 'LIST = ['
-  STDIN.each_line do |line|
-    a = line.split(' ')
-    if a.size == 1
-      f.puts "#{a.first},"
-    else
-      first = a.shift
-      f.puts "#{first}(#{a.join ', '}),"
-    end
-  end
-  f.puts '].freeze'
+list = []
+STDIN.each_line do |line|
+  list << Button.parse(line)
 end
 
-require './config'
-
 (1..MOVE).each do |move|
-  LIST.repeated_permutation(move) do |a|
+  list.repeated_permutation(move) do |a|
     stop = false
     result = a.inject(START) do |sum, op|
       stop = true if sum % 1 != 0
       stop = true if sum.to_s.length > 6
-      op.call(sum)
+      op.click(sum)
     end
     next if stop
     if result == GOAL
