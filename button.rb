@@ -18,6 +18,7 @@ class Button
       when /^Mirror$/i then Mirror
       when /^\[.\]/ then Modify
       when /^\d/ then Number
+      when /^Store$/i then Store
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
   end
@@ -291,5 +292,23 @@ class Modify
 
   def to_s
     "[#{operation}]#{number}"
+  end
+end
+
+class Store
+  attr_accessor :number
+
+  LONG = true
+
+  def click(now, _all)
+    (now.to_s + @number.to_s).to_i
+  end
+
+  def long_click(now, _all)
+    @number = now
+  end
+
+  def to_s
+    @number.nil? ? 'Store' : @number.to_s
   end
 end
