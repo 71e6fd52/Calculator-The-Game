@@ -7,6 +7,7 @@ class Button
     when /^\*/ then Multiply
     when %r{^/} then Divide
     when /^\^/ then Multiply
+    when /^Reverse/i then Reverse
     end.parse(str)
   end
 end
@@ -140,5 +141,21 @@ class Power
 
   def to_s
     "^#{num}"
+  end
+end
+
+class Reverse
+  def self.parse(str)
+    m = str.match(/^Reverse$/i)
+    raise 'Not Reverse' unless m
+    new
+  end
+
+  def click(now, _all)
+    now.to_s.reverse.to_i
+  end
+
+  def to_s
+    'Reverse'
   end
 end
