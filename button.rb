@@ -15,6 +15,7 @@ class Button
       when /^SUM$/i then SUM
       when /^<Shift$/i then LeftShift
       when /^Shift>$/i then RightShift
+      when /^Mirror$/i then Mirror
       when /^\d/ then Number
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
@@ -251,5 +252,16 @@ class RightShift
 
   def to_s
     'Shift>'
+  end
+end
+
+class Mirror
+  def click(now, _all)
+    (now.to_s + now.to_s.reverse).to_i
+    # "-1221-".to_i = -1221
+  end
+
+  def to_s
+    'Mirror'
   end
 end
