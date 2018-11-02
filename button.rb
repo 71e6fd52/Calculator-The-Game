@@ -20,6 +20,7 @@ class Button
       when /^\d/ then Number
       when /^Sto/i then Store
       when /^Inv/i then Inv
+      when /^trans/i then Trans
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
   end
@@ -321,5 +322,13 @@ class Inv
 
   def to_s
     'Inv10'
+  end
+end
+
+class Trans
+  def self.parse(str)
+    m = str.match(/^trans\w* (\d+) (\d+)/)
+    raise 'Not Transport' unless m
+    (m[2].to_i..m[1].to_i)
   end
 end
