@@ -22,6 +22,7 @@ end
     stop = false
     result = a.inject(START) do |sum, op|
       stop = true if sum % 1 != 0
+      sum = sum.to_i
       stop = true if sum.to_s.length > 6
       op.click(sum, list)
     end
