@@ -33,6 +33,7 @@ require './config'
     stop = false
     result = a.inject(START) do |sum, op|
       stop = true if sum % 1 != 0
+      stop = true if sum.to_s.length > 6
       op.call(sum)
     end
     next if stop
