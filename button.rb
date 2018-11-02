@@ -233,9 +233,9 @@ end
 
 class LeftShift
   def click(now, _all)
-    v = abs(now).to_s.split('')
+    v = now.abs.to_s.split('')
     rs = v.push(v.shift).join('').to_i
-    rs *= -1 if s < 0
+    rs *= -1 if now < 0
     rs
   end
 
@@ -246,9 +246,9 @@ end
 
 class RightShift
   def click(now, _all)
-    v = abs(now).to_s.split('')
+    v = now.abs.to_s.split('')
     rs = v.unshift(v.pop).join('').to_i
-    rs *= -1 if s < 0
+    rs *= -1 if now < 0
     rs
   end
 
@@ -282,12 +282,12 @@ class Modify
     @number = num
   end
 
-  def click(sum, all)
+  def click(now, all)
     all.each do |button|
       next if button.class == Modify
       button.num += @number if button.methods.include? :num=
     end
-    sum
+    now
   end
 
   def to_s
