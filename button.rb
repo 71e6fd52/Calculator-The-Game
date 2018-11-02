@@ -9,6 +9,8 @@ class Button
     when %r{^/} then Divide
     when /^\^/ then Multiply
     when /^Reverse/i then Reverse
+    when '<<' then Left
+    when '>>' then Right
     end.parse(str)
   end
 end
@@ -173,5 +175,33 @@ class Opposite
 
   def to_s
     '+/-'
+  end
+end
+
+class Left
+  def self.parse(_str)
+    new
+  end
+
+  def click(now, _all)
+    now / 10
+  end
+
+  def to_s
+    '<<'
+  end
+end
+
+class Right
+  def self.parse(_str)
+    new
+  end
+
+  def click(now, _all)
+    now * 10
+  end
+
+  def to_s
+    '>>'
   end
 end
