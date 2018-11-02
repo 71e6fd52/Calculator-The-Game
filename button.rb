@@ -202,7 +202,7 @@ class To
   def self.parse(str)
     m = str.match(/^(\d+)=>(\d+)$/)
     raise 'Not To' unless m
-    new(m[1].to_i, m[2].to_i)
+    new(m[1], m[2])
   end
 
   def initialize(a, b)
@@ -211,7 +211,7 @@ class To
   end
 
   def click(now, _all)
-    now.to_s.gsub(@from.to_s, @to.to_s).to_i
+    now.to_s.gsub(@from, @to).to_i
   end
 
   def to_s
