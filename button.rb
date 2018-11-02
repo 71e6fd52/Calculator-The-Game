@@ -5,13 +5,14 @@ class Button
       when '+/-' then Opposite
       when /^\+/ then Plus
       when /^-/ then Minus
-      when /^\d/ then Number
       when /^\*/ then Multiply
       when %r{^/} then Divide
       when /^\^/ then Multiply
       when /^Reverse/i then Reverse
       when '<<' then Left
       when '>>' then Right
+      when /=>/ then To
+      when /^\d/ then Number
       end
     c.method_defined?(:parse) ? c.parse(str) : c.new
   end
@@ -186,5 +187,28 @@ class Right
 
   def to_s
     '>>'
+  end
+end
+
+class To
+  attr_accessor :from, :to
+
+  def self.parse(str)
+    m = str.match(/^(\d+)=>(\d+)$/)
+    raise 'Not To' unless m
+    new(m[1].to_i, m[2].to_i)
+  end
+
+  def initialize(a, b)
+    @from = a
+    @to = b
+  end
+
+  def click(now, _all)
+    now.to_s.gsub(@from.to_s, @to.to_s).to_i
+  end
+
+  def to_s
+    "#{@from}=>#{@to}"
   end
 end
