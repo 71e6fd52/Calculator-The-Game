@@ -13,6 +13,8 @@ class Button
       when '>>' then Right
       when /=>/ then To
       when /^SUM$/i then SUM
+      when /^<Shift$/i then LeftShift
+      when /^Shift>$/i then RightShift
       when /^\d/ then Number
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
@@ -223,5 +225,31 @@ class SUM
 
   def to_s
     'SUM'
+  end
+end
+
+class LeftShift
+  def click(now, _all)
+    v = abs(now).to_s.split('')
+    rs = v.push(v.shift).join('').to_i
+    rs *= -1 if s < 0
+    rs
+  end
+
+  def to_s
+    '<Shift'
+  end
+end
+
+class RightShift
+  def click(now, _all)
+    v = abs(now).to_s.split('')
+    rs = v.unshift(v.pop).join('').to_i
+    rs *= -1 if s < 0
+    rs
+  end
+
+  def to_s
+    'Shift>'
   end
 end
