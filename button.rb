@@ -16,6 +16,7 @@ class Button
       when /^<Shift$/i then LeftShift
       when /^Shift>$/i then RightShift
       when /^Mirror$/i then Mirror
+      when /^\[.\]/ then Modify
       when /^\d/ then Number
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
@@ -263,5 +264,32 @@ class Mirror
 
   def to_s
     'Mirror'
+  end
+end
+
+class Modify
+  attr_accessor :operation, :number
+
+  def self.parse(str)
+    m = str.match(/^\[(.)\]\s?(\d+)$/)
+    raise 'Not Modify' unless m
+    new(m[1], m[2].to_i)
+  end
+
+  def initialize(oper, num)
+    @operation = oper
+    @number = num
+  end
+
+  def click(sum, all)
+    all.each do |button|
+      next if button.class == Modify
+      button.num += @number if button.methods.include? :num=
+    end
+    sum
+  end
+
+  def to_s
+    "[#{operation}]#{number}"
   end
 end

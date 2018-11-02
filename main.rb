@@ -19,12 +19,13 @@ end
 
 (1..MOVE).each do |move|
   list.repeated_permutation(move) do |a|
+    a = a.map(&:dup)
     stop = false
-    result = a.inject(START) do |sum, op|
+    result = a.each_with_index.inject(START) do |sum, (op, idx)|
       stop = true if sum % 1 != 0
       sum = sum.to_i
       stop = true if sum.to_s.length > 6
-      op.click(sum, list)
+      op.click(sum, a[(idx + 1)...a.length])
     end
     next if stop
     if result == GOAL
