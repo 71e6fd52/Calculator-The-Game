@@ -55,9 +55,11 @@ end
       stop = true if sum.to_s.length > 6
       break if stop
       while sum.to_s.length >= trans.max
-        from = sum.to_s[-trans.max].to_i
-        sum -= from * 10**(trans.max - 1)
-        sum += from * 10**(trans.min - 1)
+        right = sum.to_s.slice(-(trans.max - 1)..-1).to_i
+        left = sum.to_s.slice(0..(sum.to_s.length - trans.max)).to_i
+        right += left.to_s[-1].to_i * 10**(trans.min - 1)
+        left /= 10
+        sum = left * 10**(trans.max - 1) + right
       end
       op, long = *op if op.class == Array
       if long
