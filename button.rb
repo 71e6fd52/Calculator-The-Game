@@ -3,7 +3,31 @@ class Button
     case str
     when /^\+/ then Plus
     when /^-/ then Minus
+    when /^\d/ then Number
+    when /^\*/ then Multiply
     end.parse(str)
+  end
+end
+
+class Number
+  attr_accessor :num
+
+  def self.parse(str)
+    m = str.match(/^([0-9.]+)$/)
+    raise 'Not Number' unless m
+    new(m[1].to_i)
+  end
+
+  def initialize(num)
+    @num = num
+  end
+
+  def click(now, _all)
+    (now.to_s + num.to_s).to_i
+  end
+
+  def to_s
+    num.to_s
   end
 end
 
@@ -51,12 +75,12 @@ class Minus
   end
 end
 
-class Number
+class Multiply
   attr_accessor :num
 
   def self.parse(str)
-    m = str.match(/^([0-9.]+)$/)
-    raise 'Not Number' unless m
+    m = str.match(/^\*([0-9.]+)$/)
+    raise 'Not Multiply' unless m
     new(m[1].to_i)
   end
 
@@ -65,10 +89,10 @@ class Number
   end
 
   def click(now, _all)
-    (now.to_s + num.to_s).to_i
+    now * num
   end
 
   def to_s
-    num.to_s
+    "*#{num}"
   end
 end
