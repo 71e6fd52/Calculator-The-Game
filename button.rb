@@ -19,6 +19,7 @@ class Button
       when /^\[.\]/ then Modify
       when /^\d/ then Number
       when /^Sto/i then Store
+      when /^Inv/i then Inv
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
   end
@@ -310,5 +311,15 @@ class Store
 
   def to_s
     @number.nil? ? 'Store' : @number.to_s
+  end
+end
+
+class Inv
+  def click(now, _all)
+    now.to_s.split('').map { |i| (10 - i.to_i).to_s[-1] }.join.to_i
+  end
+
+  def to_s
+    'Inv10'
   end
 end
