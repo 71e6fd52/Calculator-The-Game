@@ -14,7 +14,7 @@ class Button
       when /=>/ then To
       when /^\d/ then Number
       end
-    c.method_defined?(:parse) ? c.parse(str) : c.new
+    c.methods.include?(:parse) ? c.parse(str) : c.new
   end
 end
 
