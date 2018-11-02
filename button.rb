@@ -148,9 +148,7 @@ class Power
 end
 
 class Reverse
-  def self.parse(str)
-    m = str.match(/^Reverse$/i)
-    raise 'Not Reverse' unless m
+  def self.parse(_str)
     new
   end
 
@@ -164,8 +162,7 @@ class Reverse
 end
 
 class Opposite
-  def self.parse(str)
-    raise 'Not Reverse' unless str == '+/-'
+  def self.parse(_str)
     new
   end
 
