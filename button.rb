@@ -20,7 +20,7 @@ class Plus
     @num = num
   end
 
-  def click(now)
+  def click(now, _all)
     now + @num
   end
 
@@ -42,7 +42,7 @@ class Minus
     @num = num
   end
 
-  def click(now)
+  def click(now, _all)
     now - num
   end
 
@@ -64,7 +64,7 @@ class Number
     @num = num
   end
 
-  def click(now)
+  def click(now, _all)
     (now.to_s + num.to_s).to_i
   end
 
