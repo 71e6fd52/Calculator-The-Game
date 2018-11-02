@@ -1,17 +1,19 @@
 class Button
   def self.parse(str)
-    case str
-    when '+/-' then Opposite
-    when /^\+/ then Plus
-    when /^-/ then Minus
-    when /^\d/ then Number
-    when /^\*/ then Multiply
-    when %r{^/} then Divide
-    when /^\^/ then Multiply
-    when /^Reverse/i then Reverse
-    when '<<' then Left
-    when '>>' then Right
-    end.parse(str)
+    c = \
+      case str
+      when '+/-' then Opposite
+      when /^\+/ then Plus
+      when /^-/ then Minus
+      when /^\d/ then Number
+      when /^\*/ then Multiply
+      when %r{^/} then Divide
+      when /^\^/ then Multiply
+      when /^Reverse/i then Reverse
+      when '<<' then Left
+      when '>>' then Right
+      end
+    c.method_defined?(:parse) ? c.parse(str) : c.new
   end
 end
 
@@ -148,10 +150,6 @@ class Power
 end
 
 class Reverse
-  def self.parse(_str)
-    new
-  end
-
   def click(now, _all)
     now.to_s.reverse.to_i
   end
@@ -162,10 +160,6 @@ class Reverse
 end
 
 class Opposite
-  def self.parse(_str)
-    new
-  end
-
   def click(now, _all)
     -now
   end
@@ -176,10 +170,6 @@ class Opposite
 end
 
 class Left
-  def self.parse(_str)
-    new
-  end
-
   def click(now, _all)
     now / 10
   end
@@ -190,10 +180,6 @@ class Left
 end
 
 class Right
-  def self.parse(_str)
-    new
-  end
-
   def click(now, _all)
     now * 10
   end
