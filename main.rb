@@ -17,36 +17,29 @@ def button_dup(a)
   end
 end
 
-def stop(found)
-  found.sort! { |a, b| a[1] <=> b[1] }
-  puts found.first.first
-  exit
-end
-
-Inf = 100
+Inf = 20
 
 print 'Start: '
 START = gets.to_i
 print 'Goal: '
 GOAL = gets.to_i
-# print 'Move: '
-# m = gets.to_i
-MOVE = Inf
-
-found_number = 1
+max_move = Inf
 
 list = []
 STDIN.each_line do |line|
   list << Button.parse(line.chomp)
   if list.last.class.const_defined?(:LONG) && list.last.class.const_get(:LONG)
     list << [list.last, true]
-    found_number = 30
+    max_move = 0
   end
 end
 
-found = []
+if max_move != Inf
+  print 'Move: '
+  max_move = gets.to_i
+end
 
-(1..MOVE).each do |move|
+(1..Inf).each do |move|
   list.repeated_permutation(move) do |a|
     a = button_dup(a)
     stop = false
@@ -68,11 +61,10 @@ found = []
       end
     end
     next if stop
-    if result == GOAL
-      found << [text.join(' '), used]
-      stop found if MOVE == Inf && found.length >= found_number
+    if result == GOAL && used <= max_move
+      puts text.join(' ')
+      exit
     end
   end
   STDERR.puts "#{move} search done."
 end
-stop found
