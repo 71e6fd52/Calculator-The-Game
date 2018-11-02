@@ -50,3 +50,25 @@ class Minus
     "-#{num}"
   end
 end
+
+class Number
+  attr_accessor :num
+
+  def self.parse(str)
+    m = str.match(/^([0-9.]+)$/)
+    raise 'Not Number' unless m
+    new(m[1].to_i)
+  end
+
+  def initialize(num)
+    @num = num
+  end
+
+  def click(now)
+    (now.to_s + num.to_s).to_i
+  end
+
+  def to_s
+    num.to_s
+  end
+end
