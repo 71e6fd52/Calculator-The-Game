@@ -8,10 +8,11 @@ class Button
       when /^\*/ then Multiply
       when %r{^/} then Divide
       when /^\^/ then Multiply
-      when /^Reverse/i then Reverse
+      when /^Reverse$/i then Reverse
       when '<<' then Left
       when '>>' then Right
       when /=>/ then To
+      when /^SUM$/i then SUM
       when /^\d/ then Number
       end
     c.methods.include?(:parse) ? c.parse(str) : c.new
@@ -210,5 +211,17 @@ class To
 
   def to_s
     "#{@from}=>#{@to}"
+  end
+end
+
+class SUM
+  def click(now, _all)
+    rs = now.to_s.split('').collect(&:to_i).sum
+    rs *= -1 if now < 0
+    rs
+  end
+
+  def to_s
+    'SUM'
   end
 end
