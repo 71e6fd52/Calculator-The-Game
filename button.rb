@@ -6,6 +6,7 @@ class Button
     when /^\d/ then Number
     when /^\*/ then Multiply
     when %r{^/} then Divide
+    when /^\^/ then Multiply
     end.parse(str)
   end
 end
@@ -117,5 +118,27 @@ class Divide
 
   def to_s
     "/#{num}"
+  end
+end
+
+class Power
+  attr_accessor :num
+
+  def self.parse(str)
+    m = str.match(/^\^([0-9.]+)$/)
+    raise 'Not Power' unless m
+    new(m[1].to_i)
+  end
+
+  def initialize(num)
+    @num = num
+  end
+
+  def click(now, _all)
+    now**num
+  end
+
+  def to_s
+    "^#{num}"
   end
 end
